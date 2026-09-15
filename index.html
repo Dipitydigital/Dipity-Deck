@@ -157,6 +157,12 @@ body.editing .mover{display:flex}
 body.editing section{outline:1px dashed rgba(197,153,255,.25);outline-offset:-8px}
 body.editing [contenteditable]:hover{outline:1px dashed rgba(197,153,255,.5)}
 [contenteditable]:focus{outline:1px solid var(--accent)!important;border-radius:2px}
+.fmt{position:fixed;z-index:90;display:none;align-items:center;gap:2px;background:#131314;border:1px solid var(--line-strong);border-radius:8px;padding:4px 6px;box-shadow:0 12px 32px rgba(0,0,0,.55)}
+.fmt.show{display:flex}
+.fmt button{font-family:'Geist Mono',monospace;font-size:12px;color:var(--soft);background:none;border:none;border-radius:5px;padding:.35rem .5rem;cursor:pointer;line-height:1}
+.fmt button:hover{background:#1f1f20;color:#fff}
+.fmt .sw{width:15px;height:15px;border-radius:50%;padding:0;margin:0 2px;border:1px solid rgba(255,255,255,.25)}
+.fmt .sep{width:1px;height:16px;background:var(--line-strong);margin:0 4px}
 
 @media(max-width:900px){
   .split .wrap,.split.mleft .wrap{grid-template-columns:1fr}
@@ -567,6 +573,44 @@ savBtn.onclick=async()=>{
 tools.querySelector('.rst').onclick=()=>{
   if(confirm('Discard unsaved edits and reload the deck from the file?'))location.reload()
 };
+
+// OLD SCRIPT WITHOUT TOOLBAR
+const PALETTE=['#ffffff','#8d8d8d','#c599ff','#ff88be','#a2f865','#f6e86a','#ffb877','#ff9c85'];
+const fmt=document.createElement('div');
+fmt.className='fmt';fmt.contentEditable=false;
+fmt.innerHTML='<button data-cmd="bold" title="Bold"><b>B</b></button>'
+ +'<button data-cmd="italic" title="Italic"><i>I</i></button>'
+ +'<span class="sep"></span>'
+ +'<button data-block="h1" title="Heading 1">H1</button>'
+ +'<button data-block="h2" title="Heading 2">H2</button>'
+ +'<button data-block="p" title="Paragraph">¶</button>'
+ +'<span class="sep"></span>'
+ +PALETTE.map(c=>'<button class="sw" data-color="'+c+'" title="'+c+'" style="background:'+c+'"></button>').join('');
+document.body.appendChild(fmt);
+
+fmt.addEventListener('mousedown',e=>e.preventDefault()); // keep the text selection alive
+fmt.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  document.execCommand('styleWithCSS',false,true);
+  if(b.dataset.cmd)document.execCommand(b.dataset.cmd);
+  else if(b.dataset.block)document.execCommand('formatBlock',false,b.dataset.block);
+  else if(b.dataset.color)document.execCommand('foreColor',false,b.dataset.color);
+});
+
+function placeFmt(){
+  if(!editing){fmt.classList.remove('show');return}
+  const sel=getSelection();
+  if(!sel.rangeCount||sel.isCollapsed){fmt.classList.remove('show');return}
+  const node=sel.anchorNode&&(sel.anchorNode.nodeType===1?sel.anchorNode:sel.anchorNode.parentElement);
+  if(!node||!node.closest('[contenteditable]')){fmt.classList.remove('show');return}
+  const r=sel.getRangeAt(0).getBoundingClientRect();
+  if(!r.width&&!r.height){fmt.classList.remove('show');return}
+  fmt.classList.add('show');
+  fmt.style.left=Math.max(8,Math.min(innerWidth-fmt.offsetWidth-8,r.left+r.width/2-fmt.offsetWidth/2))+'px';
+  fmt.style.top=Math.max(8,r.top-fmt.offsetHeight-10)+'px';
+}
+document.addEventListener('selectionchange',()=>requestAnimationFrame(placeFmt));
+addEventListener('scroll',()=>fmt.classList.remove('show'),true);
 
 
 
