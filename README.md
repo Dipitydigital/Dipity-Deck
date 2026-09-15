@@ -10,13 +10,13 @@ Open `index.html` in a browser. Navigate with arrow keys, space, or the dot rail
 
 ## Editing (in the browser)
 
-Bottom-left toolbar:
+**Double-click `serve.bat`** (or run `node server.mjs`) — it opens `http://localhost:4173`. Then, bottom-left toolbar:
 
 - **✎ Edit** — toggles edit mode. Click any text to edit it in place. ▲▼ buttons on each slide's left edge reorder slides; numbering and nav dots update automatically.
-- **Export** — downloads a new `index.html` with your edits baked in. Replace the repo copy with it and commit.
-- **Reset** — discards in-browser edits, restores the file's version.
+- **Save** — writes your edits straight into `index.html` on disk (previous version kept at `index.html.bak`). No export dance; the repo file IS the latest version.
+- **Reset** — discards unsaved in-browser edits, restores the file's version.
 
-Edits autosave to `localStorage` (per browser). They are NOT in the file until you Export.
+Between saves, edits autosave to `localStorage` as crash protection. If you open `index.html` directly via `file://` instead of the server, Save falls back to downloading a copy.
 
 ## Deploying
 
