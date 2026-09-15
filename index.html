@@ -405,23 +405,22 @@ body.editing [contenteditable]:hover{outline:1px dashed rgba(197,153,255,.5)}
   <div class="wrap">
     <div class="eyebrow rv">The path</div>
     <h2 class="rv d1">$250M ARR — from the <span class="acc">AI CMO alone</span></h2>
-    <div class="rv d2" style="display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-top:2.6rem">
-      <div class="fcard" style="text-align:left;border-top:2px solid var(--accent);flex:0 1 460px">
+    <div class="rv d2" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.4rem">
+      <div class="fcard" style="text-align:left;border-top:2px solid var(--accent)">
         <span class="mono" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)">01 · Multi-Agent Teams</span>
-        <div style="font-weight:500;font-size:clamp(19px,1.7vw,26px);letter-spacing:-.015em;margin:.6rem 0 .4rem">One brain, many employees.</div>
+        <div style="font-weight:500;font-size:clamp(19px,1.7vw,26px);letter-spacing:-.015em;margin:.6rem 0 .4rem">One brain, every executive.</div>
         <p>Sales, development, finance and ops launch on the knowledge base Sera already built — multiplying ACV inside every account.</p>
       </div>
-      <div class="fcard" style="text-align:left;border-top:2px solid #fff;flex:0 1 460px">
+      <div class="fcard" style="text-align:left;border-top:2px solid #fff">
         <span class="mono" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#fff">02 · Media Studio</span>
         <div style="font-weight:500;font-size:clamp(19px,1.7vw,26px);letter-spacing:-.015em;margin:.6rem 0 .4rem">Distribution we own.</div>
         <p>Turns executive insight into audience at portfolio scale — amplifies every customer and collapses our own CAC.</p>
       </div>
-      <div class="fcard" style="text-align:left;border-top:2px solid var(--pink);flex:0 1 460px">
+      <div class="fcard" style="text-align:left;border-top:2px solid var(--pink)">
         <span class="mono" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--pink)">03 · Incubator &amp; Angel</span>
         <div style="font-weight:500;font-size:clamp(19px,1.7vw,26px);letter-spacing:-.015em;margin:.6rem 0 .4rem">First-check advantage.</div>
-        <p>Living inside the accelerator circuit gives us the earliest signal on breakout teams — incubation and angel positions ride on top.</p>
-      </div>
-    </div>
+        <p>Living inside the accelerator circuit gives us the earliest signal on breakout teams — incubation and angel positions ride on top.</p></div></div>
+    <div class="stake-line rv d4" style="margin-top:1.8rem"><br></div>
   </div>
 </section>
 
@@ -549,6 +548,7 @@ const tools=document.createElement('div');
 tools.className='tools';tools.id='tools';
 tools.innerHTML='<button class="tgl">✎ Edit</button><button class="sav">Save</button><button class="rst">Reset</button>';
 document.body.appendChild(tools);
+if(!/^(localhost|127\.)/.test(location.hostname))tools.style.display='none'; // editor is local-only
 
 function addMovers(){
   secs().forEach(s=>{
