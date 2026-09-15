@@ -456,16 +456,16 @@ body.editing [contenteditable]:hover{outline:1px dashed rgba(197,153,255,.5)}
 
 
 
-const KEY='dipity-deck-v3';
 
-// restore a saved edit session (text + slide order) if present
-const saved=localStorage.getItem(KEY);
-if(saved){
-  try{
-    const tmp=document.createElement('div');tmp.innerHTML=saved;
-    document.querySelectorAll('body > section').forEach(s=>s.remove());
-    [...tmp.children].reverse().forEach(s=>document.body.prepend(s));
-  }catch(e){localStorage.removeItem(KEY)}
+// the file on disk is the single source of truth — no client-side persistence.
+// (a legacy localStorage blob from older versions is ignored and harmless.)
+
+// device-aware email link: phones get the native mail app, desktop gets Gmail compose
+if(/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent)){
+  document.querySelectorAll('a[href*="mail.google.com"]').forEach(a=>{
+    const to=new URL(a.href).searchParams.get('to');
+    if(to)a.href='mailto:'+to;
+  });
 }
 
 function secs(){return [...document.querySelectorAll('section')]}
@@ -512,8 +512,8 @@ function addMovers(){
     const m=document.createElement('div');
     m.className='mover';m.contentEditable=false;
     m.innerHTML='<button title="Move slide up">▲</button><button title="Move slide down">▼</button>';
-    m.children[0].onclick=()=>{const p=s.previousElementSibling;if(p&&p.tagName==='SECTION'){s.after(p);renumber();save();s.scrollIntoView()}};
-    m.children[1].onclick=()=>{const nx=s.nextElementSibling;if(nx&&nx.tagName==='SECTION'){s.before(nx);renumber();save();s.scrollIntoView()}};
+    m.children[0].onclick=()=>{const p=s.previousElementSibling;if(p&&p.tagName==='SECTION'){s.after(p);renumber();s.scrollIntoView()}};
+    m.children[1].onclick=()=>{const nx=s.nextElementSibling;if(nx&&nx.tagName==='SECTION'){s.before(nx);renumber();s.scrollIntoView()}};
     s.appendChild(m);
   });
 }
@@ -530,7 +530,6 @@ function cleanClone(){
   });
   return out.join('\n\n');
 }
-function save(){localStorage.setItem(KEY,cleanClone())}
 
 let editing=false;
 tools.querySelector('.tgl').onclick=()=>{
@@ -542,9 +541,8 @@ tools.querySelector('.tgl').onclick=()=>{
       else el.removeAttribute('contenteditable');
     });
   });
-  if(editing)addMovers();else save();
+  if(editing)addMovers();
 };
-document.body.addEventListener('input',()=>{if(editing)save()});
 
 function buildDoc(){
   return '<!DOCTYPE html>\n<html lang="en">\n'+document.head.outerHTML+'\n<body>\n\n'+cleanClone()+'\n\n<nav class="dots" id="dots"></nav>\n\n<scr'+'ipt>\n'+document.querySelector('script').textContent+'\n</scr'+'ipt>\n</body>\n</html>';
@@ -556,7 +554,6 @@ savBtn.onclick=async()=>{
     if(location.protocol!=='http:'&&location.protocol!=='https:')throw new Error('file://');
     const r=await fetch('/save',{method:'POST',body:doc});
     if(!r.ok)throw new Error('server '+r.status);
-    localStorage.removeItem(KEY);
     savBtn.textContent='Saved ✓';
     setTimeout(()=>savBtn.textContent='Save',1600);
   }catch(err){
@@ -567,8 +564,9 @@ savBtn.onclick=async()=>{
   }
 };
 tools.querySelector('.rst').onclick=()=>{
-  if(confirm('Discard all in-browser edits and restore the original deck?')){localStorage.removeItem(KEY);location.reload()}
+  if(confirm('Discard unsaved edits and reload the deck from the file?'))location.reload()
 };
+
 
 
 
