@@ -127,7 +127,7 @@ h2{font-weight:500;font-size:clamp(32px,3.7vw,52px);line-height:1.12;letter-spac
 .ht{position:relative;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--panel)}
 .ht img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) contrast(1.06) brightness(.92)}
 .ht .dotov{position:absolute;inset:0;background-image:radial-gradient(rgba(12,12,13,.55) 1px,transparent 1.3px);background-size:5px 5px}
-.ht .band{position:absolute;left:0;right:0;height:26%;bottom:14%;background:linear-gradient(90deg,rgba(197,153,255,.1),#c9a1ff 18%,#b487f8 82%,rgba(197,153,255,.1))}
+.ht .band{position:absolute;left:0;right:0;height:26%;bottom:14%;background:linear-gradient(90deg,rgba(197,153,255,.0),rgba(197,153,255,.55) 30%,rgba(160,90,255,.65) 55%,rgba(197,153,255,.0));mix-blend-mode:screen}
 .ht .chips{position:absolute;left:50%;transform:translateX(-50%);bottom:9%;display:flex;flex-direction:column;gap:.6rem;align-items:center}
 
 /* ── header / footer ── */
@@ -273,7 +273,7 @@ body.editing [contenteditable]:hover{outline:1px dashed rgba(197,153,255,.5)}
         <div class="dotov"></div>
         <div class="band"></div>
         <div style="position:absolute;left:0;right:0;bottom:14%;height:26%;display:flex;align-items:center;justify-content:center">
-          <img src="assets/dipity-wordmark-black.png" alt="Dipity" style="height:38%;max-height:26px">
+          <img src="assets/dipity-wordmark-black.png" alt="Dipity" style="max-height:46%;max-width:64%;width:auto;height:auto">
         </div>
       </div>
     </div>
