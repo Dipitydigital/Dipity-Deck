@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dipity — Investor Deck</title>
+<meta name="description" content="Dipity — AI employees for lean teams. Investor deck.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c0c0d;
+  --panel:#131314;
+  --panel2:#161617;
+  --line:#212122;
+  --line-strong:#39393a;
+  --mid:#8d8d8d;
+  --soft:#c7c7c7;
+  --accent:#c599ff;
+  --pink:#ff88be;
+  --lime:#a2f865;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
+body{background:var(--bg);color:#fff;font-family:'Geist',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+section{position:relative;min-height:100vh;scroll-snap-align:start;display:flex;align-items:center;overflow:hidden;border-top:1px solid var(--line)}
+.wrap{position:relative;z-index:10;width:100%;max-width:1220px;margin:0 auto;padding:11vh 6vw}
+.split .wrap{display:grid;grid-template-columns:minmax(0,50%) minmax(0,44%);gap:6%;align-items:center}
+.split.mleft .wrap{grid-template-columns:minmax(0,44%) minmax(0,50%)}
+.split.mleft .copy{grid-column:2}
+
+/* ── dot-matrix texture ── */
+.dots-tex{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.13) 1px,transparent 1.3px);
+  background-size:8px 8px}
+/* ── mono marginalia ── */
+.marg{position:absolute;z-index:6;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.06em;color:#4a4a4c;white-space:nowrap}
+
+/* ── side media with gradient faders ── */
+.media{position:absolute;top:0;bottom:0;width:54%;z-index:1;pointer-events:none}
+.media.right{right:0}.media.left{left:0}
+.media video,.media img{width:100%;height:100%;object-fit:cover;filter:saturate(.8) contrast(1.02)}
+.media .fade{position:absolute;inset:0}
+.media.right .fade{background:
+  linear-gradient(to right,var(--bg) 0%,rgba(12,12,13,.8) 30%,rgba(12,12,13,.18) 62%,rgba(12,12,13,.45) 100%),
+  linear-gradient(to top,var(--bg) 0%,rgba(12,12,13,0) 28%),
+  linear-gradient(to bottom,rgba(12,12,13,.9) 0%,rgba(12,12,13,0) 20%)}
+.media.left .fade{background:
+  linear-gradient(to left,var(--bg) 0%,rgba(12,12,13,.8) 30%,rgba(12,12,13,.18) 62%,rgba(12,12,13,.45) 100%),
+  linear-gradient(to top,var(--bg) 0%,rgba(12,12,13,0) 28%),
+  linear-gradient(to bottom,rgba(12,12,13,.9) 0%,rgba(12,12,13,0) 20%)}
+
+/* ── type ── */
+.mono{font-family:'Geist Mono',monospace}
+.eyebrow{font-family:'Geist Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--mid);margin-bottom:1.5rem}
+.eyebrow::after{content:"_";color:var(--accent)}
+h1{font-weight:500;font-size:clamp(44px,5vw,74px);line-height:1.1;letter-spacing:-.025em}
+h2{font-weight:500;font-size:clamp(32px,3.7vw,52px);line-height:1.12;letter-spacing:-.02em}
+.acc{color:var(--accent)}
+.pinkacc{color:var(--pink)}
+.limeacc{color:var(--lime)}
+.body-copy{color:var(--mid);font-size:clamp(15px,1.25vw,17.5px);line-height:1.6;max-width:580px}
+.body-copy b{color:#fff;font-weight:500}
+.lede{margin-top:1.3rem}
+
+/* ── pill badge ── */
+.badge{display:inline-flex;align-items:center;gap:.55rem;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em;color:var(--soft);border:1px solid var(--line-strong);border-radius:999px;padding:.5rem 1.05rem;background:var(--panel)}
+.badge img{height:15px;display:block}
+
+/* ── terminal card ── */
+.term{border:1px solid var(--line-strong);border-radius:10px;background:#0f0f10;box-shadow:0 24px 60px rgba(0,0,0,.5);overflow:hidden;text-align:left}
+.term .bar{display:flex;align-items:center;gap:.45rem;padding:.6rem .9rem;border-bottom:1px solid var(--line);background:var(--panel)}
+.term .bar i{width:9px;height:9px;border-radius:50%;display:block}
+.term .bar i:nth-child(1){background:#ff5f57}.term .bar i:nth-child(2){background:#febc2e}.term .bar i:nth-child(3){background:#28c840}
+.term .bar span{margin:0 auto;font-family:'Geist Mono',monospace;font-size:11.5px;color:var(--mid)}
+.term .tbody{padding:1rem 1.1rem;font-family:'Geist Mono',monospace;font-size:13px;line-height:1.75;color:var(--soft)}
+.term .tbody .p{color:var(--lime)}
+.term .tbody .hl{color:var(--pink)}
+.term .tbody .ln{color:var(--mid)}
+
+/* ── stat rows ── */
+.hs-rows{border-top:1px solid var(--line)}
+.hs-row{display:flex;align-items:baseline;gap:1.3rem;padding:.95rem 0;border-bottom:1px solid var(--line)}
+.hs-row .amt{font-weight:500;font-size:clamp(24px,2.4vw,38px);letter-spacing:-.02em;min-width:2.8em;color:#fff;font-variant-numeric:tabular-nums}
+.hs-row .lbl{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--mid);min-width:9em}
+.hs-row p{color:var(--mid);font-size:clamp(14px,1.1vw,16px);line-height:1.5}
+.hs-row p b{color:#fff;font-weight:500}
+
+/* ── kicker ── */
+.stake-line{font-weight:500;font-size:clamp(18px,1.7vw,25px);line-height:1.35;letter-spacing:-.01em;margin-top:2.2rem}
+.stake-sub{margin-top:.6rem;color:var(--mid);font-size:clamp(13px,1.05vw,15px);line-height:1.6;max-width:580px}
+
+/* ── outlined feature card w/ corner ticks ── */
+.fcard{position:relative;border:1px solid var(--line);border-radius:4px;padding:1.5rem 1.3rem;background:rgba(255,255,255,.012);text-align:center}
+.fcard::before,.fcard::after{content:"";position:absolute;width:7px;height:7px;border-color:var(--line-strong);border-style:solid}
+.fcard::before{top:-1px;left:-1px;border-width:1px 0 0 1px}
+.fcard::after{bottom:-1px;right:-1px;border-width:0 1px 1px 0}
+.fcard .glyph{font-family:'Geist Mono',monospace;font-size:20px;color:var(--soft);letter-spacing:.1em}
+.fcard h4{font-weight:500;font-size:15.5px;margin:.9rem 0 .5rem}
+.fcard p{font-size:13px;line-height:1.55;color:var(--mid)}
+.fcard .see{display:inline-block;margin-top:.9rem;font-family:'Geist Mono',monospace;font-size:11.5px;color:var(--accent)}
+
+/* ── mono chip buttons (site "Voice agent" style) ── */
+.mchip{display:inline-flex;align-items:center;gap:.6rem;font-family:'Geist Mono',monospace;font-size:12.5px;letter-spacing:.04em;border:1px solid rgba(197,153,255,.6);border-radius:4px;color:#fff;background:rgba(197,153,255,.08);padding:.6rem 1.05rem}
+.mchip::before{content:"●";font-size:8px;color:var(--accent)}
+
+/* ── pricing columns ── */
+.pcols{display:grid;grid-template-columns:repeat(4,1fr);margin-top:2.4rem;border-top:1px solid var(--line)}
+.pcol{padding:1.7rem 1.5rem 1.9rem;border-right:1px solid var(--line)}
+.pcol:last-child{border-right:none}
+.pcol h4{font-weight:500;font-size:19px;margin-bottom:.4rem}
+.pcol .blurb{font-size:12.5px;line-height:1.5;color:var(--mid);min-height:3.2em}
+.pcol .price{font-weight:500;font-size:clamp(28px,2.6vw,40px);letter-spacing:-.02em;margin:1.1rem 0 1.2rem;font-variant-numeric:tabular-nums}
+.pcol .price small{font-size:12px;color:var(--mid);font-family:'Geist Mono',monospace;letter-spacing:.03em}
+.pcol ul{list-style:none;margin-top:.4rem}
+.pcol li{position:relative;padding:.34rem 0 .34rem 1.15rem;font-size:12.8px;color:var(--soft)}
+.pcol li::before{content:"";position:absolute;left:0;top:.72em;width:5px;height:5px;background:var(--line-strong)}
+.pcol.hot .price{color:var(--pink)}
+.pcol .btn{display:block;text-align:center;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line-strong);border-radius:6px;padding:.7rem 0;color:#fff;margin-bottom:1.1rem}
+.pcol .btn.fill{background:var(--accent);border-color:var(--accent);color:#111}
+
+/* ── halftone portrait ── */
+.ht{position:relative;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--panel)}
+.ht img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) contrast(1.06) brightness(.92)}
+.ht .dotov{position:absolute;inset:0;background-image:radial-gradient(rgba(12,12,13,.55) 1px,transparent 1.3px);background-size:5px 5px}
+.ht .band{position:absolute;left:0;right:0;height:26%;bottom:14%;background:linear-gradient(90deg,rgba(197,153,255,.0),rgba(197,153,255,.55) 30%,rgba(160,90,255,.65) 55%,rgba(197,153,255,.0));mix-blend-mode:screen}
+.ht .chips{position:absolute;left:50%;transform:translateX(-50%);bottom:9%;display:flex;flex-direction:column;gap:.6rem;align-items:center}
+
+/* ── header / footer ── */
+.idx{position:absolute;top:1.6rem;right:2.2rem;z-index:20;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.06em;color:var(--mid)}
+.idx b{color:#fff;font-weight:400}
+.brand{position:absolute;top:1.7rem;left:2.2rem;z-index:20;height:14px;opacity:.85}
+.topmarg{position:absolute;top:1.7rem;left:50%;transform:translateX(-50%);z-index:6;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.05em;color:#4a4a4c;white-space:nowrap}
+.footbar{position:absolute;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:1.3rem 2.2rem;border-top:1px solid var(--line);font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--mid);text-transform:uppercase}
+
+/* ── reveals / dots nav ── */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.in .rv{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+.dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:9px}
+.dots a{width:5px;height:5px;border-radius:50%;background:var(--line-strong);transition:.25s}
+.dots a.on{background:var(--accent);transform:scale(1.5)}
+
+/* ── edit mode ── */
+.tools{position:fixed;left:18px;bottom:16px;z-index:80;display:flex;gap:.5rem}
+.tools button{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:var(--panel);border:1px solid var(--line-strong);border-radius:6px;padding:.5rem .85rem;cursor:pointer}
+.tools button:hover{color:#fff;border-color:var(--mid)}
+body.editing .tools button.tgl{color:#111;background:var(--accent);border-color:var(--accent)}
+.mover{position:absolute;left:1.6rem;top:50%;transform:translateY(-50%);z-index:70;display:none;flex-direction:column;gap:.4rem}
+body.editing .mover{display:flex}
+.mover button{width:30px;height:30px;font-size:13px;color:var(--soft);background:var(--panel);border:1px solid var(--line-strong);border-radius:6px;cursor:pointer}
+.mover button:hover{color:#111;background:var(--accent);border-color:var(--accent)}
+body.editing section{outline:1px dashed rgba(197,153,255,.25);outline-offset:-8px}
+body.editing [contenteditable]:hover{outline:1px dashed rgba(197,153,255,.5)}
+[contenteditable]:focus{outline:1px solid var(--accent)!important;border-radius:2px}
+
+@media(max-width:900px){
+  .split .wrap,.split.mleft .wrap{grid-template-columns:1fr}
+  .split.mleft .copy{grid-column:1}
+  .media{width:100%;opacity:.2}
+  .media.right .fade,.media.left .fade{background:linear-gradient(to bottom,rgba(12,12,13,.75),rgba(12,12,13,.95))}
+  .pcols{grid-template-columns:1fr 1fr}
+  .pcol{border-bottom:1px solid var(--line)}
+  .dots,.topmarg,.marg{display:none}
+  .footbar{padding:1rem 1.3rem;font-size:9px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── 01 · TITLE (centered hero, site-style) ── -->
+<section id="s1" style="border-top:none">
+  <div class="dots-tex" style="mask-image:radial-gradient(70% 60% at 50% 30%,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(70% 60% at 50% 30%,#000 20%,transparent 75%);opacity:.7"></div>
+  <span class="marg" style="top:1.7rem;left:50%;transform:translateX(-50%)">// AI employees, not tools &nbsp;·&nbsp; New: Envoy //</span>
+  <span class="idx"><b>01</b> / 11</span>
+  <div class="wrap" style="text-align:center;max-width:960px">
+    <div class="rv"><span class="badge"><img src="assets/fi-leaf.png" alt="">Backed by Founder Institute</span></div>
+    <div class="rv d1" style="display:inline-block;border:1px solid var(--line-strong);border-radius:12px;overflow:hidden;background:#000;margin:1.6rem auto 1.4rem;box-shadow:0 18px 50px rgba(0,0,0,.55)">
+      <video autoplay muted loop playsinline src="assets/crystal-logo.mp4" style="width:clamp(150px,14vw,200px);display:block"></video>
+    </div>
+    <h1 class="rv d2" style="font-size:clamp(48px,5.6vw,84px)">Dipity Labs <span class="acc">INC.</span></h1>
+    <h2 class="rv d3" style="font-size:clamp(20px,2vw,30px);font-weight:400;color:var(--soft);margin-top:1.1rem;letter-spacing:-.01em">AI Teams: <span class="pinkacc">Scale Capacity, not Headcount.</span></h2>
+    <div class="rv d4" style="max-width:480px;margin:2.6rem auto 0">
+      <div class="term">
+        <div class="bar"><i></i><i></i><i></i><span>~/dipity-labs</span></div>
+        <div class="tbody">
+          <span class="p">$</span> dipity status <span class="hl">[investor-deck]</span><br>
+          <span class="ln">&gt;</span> Morgan Von Druitt · Founder &amp; CEO<br>
+          <span class="ln">&gt;</span> 39 executives on · 18 LOIs · <span style="color:var(--accent)">$432K ARR</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footbar"><span>Dipity Labs Inc.</span><span>dipity.studio</span></div>
+</section>
+
+
+<!-- ── 02 · MEET SERA (centered + 4 fcards, site-style) ── -->
+<section id="s3">
+  <div class="dots-tex" style="mask-image:linear-gradient(to bottom,transparent 30%,#000 70%,transparent 98%);-webkit-mask-image:linear-gradient(to bottom,transparent 30%,#000 70%,transparent 98%);opacity:.5"></div>
+  <img class="brand" src="assets/dipity-wordmark.png" alt="">
+  <span class="topmarg">// the material has never left their heads //</span>
+  <span class="idx"><b>02</b> / 11</span>
+  <div class="wrap" style="text-align:center;max-width:1080px">
+    <div class="eyebrow rv" style="display:inline-block">Meet Sera</div>
+    <h2 class="rv d1">Sera is your <span class="acc">AI CMO.</span></h2>
+    <p class="body-copy rv d2" style="margin:1.3rem auto 0;max-width:600px">She captures what your executives know, and turns it into the signal your market buys. Unified messaging across the whole leadership team.</p>
+    <div class="rv d3" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:2.6rem">
+      <div class="fcard"><div class="glyph">⁘</div><h4>Capture</h4><p>Interviews every executive — voice, video, or text — while they work.</p></div>
+      <div class="fcard"><div class="glyph">◆</div><h4>Codify</h4><p>Playbooks, methodologies, SOPs, case studies — one knowledge base your company owns.</p></div>
+      <div class="fcard"><div class="glyph">&lt;··&gt;</div><h4>Distribute</h4><p>Executive-led content across LinkedIn, X, blog, newsletter, video.</p></div>
+      <div class="fcard"><div class="glyph">⌁</div><h4>Convert</h4><p>Replies, DMs, and a scored pipeline of everyone leaning in.</p></div>
+    </div>
+    <div class="stake-line rv d4">Executives leave. <span class="acc">Their playbooks stay.</span></div>
+    <p class="stake-sub rv d5" style="margin-left:auto;margin-right:auto">The company keeps the knowledge — and keeps running their plays after they've gone. That's how content and campaigns scale beyond any one person's calendar.</p>
+  </div>
+</section>
+
+<!-- ── 03 · PROOF (left copy · right halftone portrait) ── -->
+<section id="s4" class="split">
+  <img class="brand" src="assets/dipity-wordmark.png" alt="">
+  <span class="topmarg">// n=1, then n=39 //</span>
+  <span class="idx"><b>03</b> / 11</span>
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow rv">Proof</div>
+      <h2 class="rv d1">I proved it <span class="acc">on myself</span></h2>
+      <p class="body-copy lede rv d2"><b>10 years</b> as a Director of Product Marketing — <b>$1.7B</b> in scope, <b>$141M</b> in attributed revenue.<br><br>Then I handed my marketing to Sera:</p>
+      <div class="hs-rows rv d3" style="margin-top:1.5rem;max-width:540px">
+        <div class="hs-row"><span class="amt limeacc" style="min-width:3.5em">360%</span><p>LinkedIn growth in a year <b>(800 → 4,000 followers).</b></p></div>
+        <div class="hs-row"><span class="amt limeacc" style="min-width:3.5em">$432K</span><p>ARR in pipeline generated <b>in two weeks.</b></p></div>
+      </div>
+    </div>
+    <div class="rv d2" style="grid-column:2">
+      <div class="ht" style="aspect-ratio:4/4.6">
+        <img src="assets/morgan.jpg" alt="Morgan Von Druitt" style="object-position:60% 12%">
+        <div class="dotov"></div>
+        <div class="band"></div>
+        <div class="chips">
+          <span class="mchip">360% YoY growth</span>
+          <span class="mchip">$432K in 2 weeks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 04 · PROBLEM ── -->
+<section id="s2" class="split">
+  <div class="media right">
+    <video autoplay muted loop playsinline src="assets/liminal.mp4"></video>
+    <div class="fade"></div>
+  </div>
+  <img class="brand" src="assets/dipity-wordmark.png" alt="">
+  <span class="topmarg">// great work is silent by default //</span>
+  <span class="idx"><b>04</b> / 11</span>
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow rv">The problem</div>
+      <h2 class="rv d1">Great work doesn't guarantee<br><span class="pinkacc">recognition or revenue</span></h2>
+      <p class="body-copy lede rv d2"><b>70%</b> of the sales cycle is complete in self-discovery.<br><b>80%</b> of buyers close with the first vendor they contact.</p>
+      <div class="hs-rows rv d3" style="margin-top:1.7rem;max-width:560px">
+        <div class="hs-row"><span class="amt">7</span><span class="lbl">Hours</span><p>Of self-guided research <b>before a call.</b></p></div>
+        <div class="hs-row"><span class="amt">11</span><span class="lbl">Touchpoints</span><p>Consumed <b>before they contact you.</b></p></div>
+        <div class="hs-row"><span class="amt">4</span><span class="lbl">Channels</span><p>One is <b>not enough to be seen.</b></p></div>
+      </div>
+      <div class="stake-line rv d4">Lose your focus, <span class="pinkacc">or lead with your wallet.</span></div>
+      <p class="stake-sub rv d5">Feeding that journey yourself: $5,000/mo for a ghostwriter whose voice drifts by month three · 10–20 hrs a week in-house · at $1,000/hr of executive time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 05 · TRACTION ── -->
+<section id="s5">
+  <div class="dots-tex" style="mask-image:radial-gradient(55% 55% at 82% 22%,#000,transparent 75%);-webkit-mask-image:radial-gradient(55% 55% at 82% 22%,#000,transparent 75%);opacity:.55"></div>
+  <img class="brand" src="assets/dipity-wordmark.png" alt="">
+  <span class="topmarg">// signed, not projected //</span>
+  <span class="idx"><b>05</b> / 11</span>
+  <div class="wrap">
+    <div class="eyebrow rv">Traction</div>
+    <h2 class="rv d1">39 executives on.<br><span class="acc">18 LOIs signed.</span></h2>
+    <div class="hs-rows rv d2" style="margin-top:2.2rem;max-width:820px">
+      <div class="hs-row" style="padding:1.1rem 0"><span class="lbl">Today</span><span class="amt" style="min-width:5.4em">$432K <small style="font-size:.4em;color:var(--mid);font-weight:400">ARR</small></span><p>signed and committed · <b>18 LOIs</b></p></div>
+      <div class="hs-row" style="padding:1.1rem 0"><span class="lbl">Signing</span><span class="amt" style="min-width:5.4em;font-size:clamp(17px,1.6vw,24px)">Channel partner</span><p>an accelerator — <b>Sera equips their entire batch</b></p></div>
+      <div class="hs-row" style="padding:1.1rem 0"><span class="lbl">End of year</span><span class="amt" style="min-width:5.4em">$1.26M <small style="font-size:.4em;color:var(--mid);font-weight:400">ARR</small></span><p><b>149</b> customers</p></div>
+    </div>
+    <div class="rv d3" style="margin-top:2.6rem">
+      <span class="mono" style="font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--mid)">2031 target_</span>
+      <div style="font-weight:500;font-size:clamp(54px,7.2vw,110px);line-height:1;letter-spacing:-.03em;margin-top:.5rem;font-variant-numeric:tabular-nums">$250M <span class="acc">ARR</span></div>
+      <p class="body-copy" style="margin-top:.6rem"><b>27,380</b> customers</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 06 · PRICING (site pricing columns) ── -->
+<section id="s6">
+  <img class="brand" src="assets/dipity-wordmark.png" alt="">
+  <span class="topmarg">// text unlimited · media metered //</span>
+  <span class="idx"><b>06</b> / 11</span>
+  <div class="wrap">
+    <div class="eyebrow rv">Pricing</div>
+    <h2 class="rv d1">Price scales <span class="acc">with you</span></h2>
+    <div class="pcols rv d2">
+      <div class="pcol">
+        <h4>Standard</h4>
+        <p class="blurb">Written omnichannel content, on your cadence.</p>
+        <div class="price">$149 <small>/monthly</small></div>
+        <span class="btn">Start</span>
+        <ul><li>Unlimited posts &amp; blogs</li><li>Monthly voice interview</li><li>3 channels</li><li>Performance reports</li></ul>
+      </div>
+      <div class="pcol hot">
+        <h4>AI Head of Content</h4>
+        <p class="blurb">Everything Sera does — publish-ready across every channel.</p>
+        <div class="price">$497 <small>/monthly</small></div>
+        <span class="btn fill">Popular</span>
+        <ul><li>Everything in Standard</li><li>Video, editing &amp; clips</li><li>Trained voice clone</li><li>Leads engine + newsroom</li></ul>
+      </div>
+      <div class="pcol">
+        <h4>Envoy</h4>
+        <p class="blurb">Sera runs it on her own. An AI employee, not a tool.</p>
+        <div class="price">$1,997 <small>/monthly</small></div>
+        <span class="btn">Private beta</span>
+        <ul><li>Autonomous multi-step goals</li><li>Proactive nightly plans</li><li>One-click approvals</li><li>Outward social operative</li></ul>
+      </div>
+      <div class="pcol">
+        <h4>Enterprise</h4>
+        <p class="blurb">Sera across your portfolio or executive team.</p>
+        <div class="price">Custom</div>
+        <span class="btn">Contact sales</span>
+        <ul><li>Fund-wide volume pricing</li><li>Dedicated account manager</li><li>Quarterly strategy sessions</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 07 · UNIT ECONOMICS ── -->
+<section id="s7">
+  <div class="dots-tex" style="mask-image:radial-gradient(50% 60% at 15% 85%,#000,transparent 75%);-webkit-mask-image:radial-gradient(50% 60% at 15% 85%,#000,transparent 75%);opacity:.5"></div>
+  <img class="brand" src="assets/dipity-wordmark.png" alt="">
+  <span class="topmarg">// compute under 5% of revenue //</span>
+  <span class="idx"><b>07</b> / 11</span>
+  <div class="wrap">
+    <div class="eyebrow rv">Unit economics</div>
+    <h2 class="rv d1">Service pricing. <span class="acc">Software margins.</span></h2>
+    <div class="rv d2" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:2.2rem;max-width:860px">
+      <div class="fcard" style="text-align:left;padding:1.7rem 1.6rem">
+        <span class="mono" style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mid)">AI Head of Content · $497/mo</span>
+        <div class="limeacc" style="font-weight:500;font-size:clamp(48px,5vw,76px);line-height:1;letter-spacing:-.03em;margin:.8rem 0 .3rem;font-variant-numeric:tabular-nums">98.5%</div>
+        <span class="mono" style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mid)">Gross margin</span>
+        <p style="margin-top:1rem;font-size:14px;color:var(--soft)">Cost to serve <b style="color:#fff">$7.59</b> · Keeps <b style="color:#fff">$489</b></p>
+      </div>
+      <div class="fcard" style="text-align:left;padding:1.7rem 1.6rem">
+        <span class="mono" style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mid)">Text unlimited · Media metered</span>
+        <div class="limeacc" style="font-weight:500;font-size:clamp(48px,5vw,76px);line-height:1;letter-spacing:-.03em;margin:.8rem 0 .3rem;font-variant-numeric:tabular-nums">80%+</div>
+        <span class="mono" style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mid)">Margin by design</span>
+        <p style="margin-top:1rem;font-size:14px;color:var(--soft)">Unlimited authoring costs points of margin. Only media consumes credits.</p>
+      </div>
+    </div>
+    <div class="stake-line rv d3">ARPU $703 against $23 to serve <span class="acc">= 97% blended gross margin.</span></div>
+  </div>
+</section>
+
+<!-- ── 08 · THE PATH ── -->
+<section id="s8">
+  <img class="brand" src="assets/dipity-wordmark.png" alt="">
+  <span class="topmarg">// batches, not seats //</span>
+  <span class="idx"><b>08</b> / 11</span>
+  <div class="wrap">
+    <div class="eyebrow rv">The path</div>
+    <h2 class="rv d1">$250M ARR — on the <span class="acc">AI CMO alone</span></h2>
+    <div class="hs-rows rv d2" style="margin-top:2.1rem;max-width:860px">
+      <div class="hs-row" style="padding:1.2rem 0"><span class="lbl" style="min-width:7.5em;color:var(--accent)">Channel</span><p><b>Batches, not seats.</b> 5,000 startups graduate US accelerators every year. One channel partner onboards an entire batch — we're signing the first now.</p></div>
+      <div class="hs-row" style="padding:1.2rem 0"><span class="lbl" style="min-width:7.5em;color:var(--accent)">Ladder</span><p><b>ARPU expansion is shipped.</b> Land at $149. Prove value at $497. Graduate to Envoy at $1,997 as autonomy earns trust. It's in the product, not the forecast.</p></div>
+      <div class="hs-row" style="padding:1.2rem 0"><span class="lbl" style="min-width:7.5em;color:var(--accent)">Market</span><p><b>Every authority figure is a seat.</b> Founders, C-suite, directors — anyone whose name carries the company's authority. Land with one; the knowledge base pulls in the rest.</p></div>
+    </div>
+    <div class="stake-line rv d3">~27,000 customers × ~$9K blended ACV <span class="acc">= $250M.</span></div>
+    <p class="stake-sub rv d4">Every additional department is upside on top.</p>
+  </div>
+</section>
+
+<!-- ── 09 · VISION ── -->
+<section id="s9" class="split">
+  <div class="media right">
+    <video autoplay muted loop playsinline src="assets/driving.mp4"></video>
+    <div class="fade"></div>
+  </div>
+  <img class="brand" src="assets/dipity-wordmark.png" alt="">
+  <span class="topmarg">// same brain, new departments //</span>
+  <span class="idx"><b>09</b> / 11</span>
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow rv">The vision</div>
+      <h2 class="rv d1">The CMO is the <span class="acc">first hire</span></h2>
+      <p class="body-copy lede rv d2">Same knowledge base. New departments.</p>
+      <div class="hs-rows rv d3" style="margin-top:1.5rem;max-width:500px">
+        <div class="hs-row"><span class="lbl" style="min-width:10em;color:#fff;font-size:13px">Marketing</span><p><b style="color:var(--lime)">Sera — live today</b></p></div>
+        <div class="hs-row"><span class="lbl" style="min-width:10em;color:#fff;font-size:13px">Sales</span><p>next</p></div>
+        <div class="hs-row"><span class="lbl" style="min-width:10em;color:#fff;font-size:13px">Development</span><p>next</p></div>
+        <div class="hs-row"><span class="lbl" style="min-width:10em;color:#fff;font-size:13px">Finance &amp; Ops</span><p>next</p></div>
+        <div class="hs-row"><span class="lbl" style="min-width:10em;color:#fff;font-size:13px">Chief of Staff</span><p>next</p></div>
+      </div>
+      <div class="stake-line rv d4">Full-stack function teams, <span class="acc">without the headcount.</span></div>
+      <p class="stake-sub rv d5">$250M is the CMO alone. Every new department runs on the same knowledge base — the playbooks Sera already captured — and sells into the same account.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 10 · THE ASK ── -->
+<section id="s10">
+  <div class="dots-tex" style="mask-image:radial-gradient(60% 55% at 50% 45%,#000,transparent 78%);-webkit-mask-image:radial-gradient(60% 55% at 50% 45%,#000,transparent 78%);opacity:.6"></div>
+  <img class="brand" src="assets/dipity-wordmark.png" alt="">
+  <span class="topmarg">// we land in the valley //</span>
+  <span class="idx"><b>10</b> / 11</span>
+  <div class="wrap" style="text-align:center;max-width:900px">
+    <div class="eyebrow rv" style="display:inline-block">The ask</div>
+    <h1 class="rv d1" style="font-size:clamp(58px,8vw,120px)">$4M <span class="acc">pre-seed</span></h1>
+    <div class="stake-line rv d2" style="margin-top:1.6rem">We land in <span class="acc">the Valley.</span></div>
+    <p class="stake-sub rv d3" style="margin-left:auto;margin-right:auto;font-size:clamp(14px,1.2vw,16.5px)">Capturing the accelerator circuit, building distribution through media studio and VC channel partners.</p>
+  </div>
+</section>
+
+<!-- ── 11 · NEXT STEP ── -->
+<section id="s11" class="split mleft">
+  <span class="topmarg">// she'd love to interview you //</span>
+  <span class="idx"><b>11</b> / 11</span>
+  <div class="media left" style="width:44%">
+    <div class="ht" style="position:absolute;inset:8vh 8% 8vh 10%;pointer-events:none">
+      <img src="assets/morgan.jpg" alt="Morgan Von Druitt" style="object-position:45% 12%">
+      <div class="dotov"></div>
+      <div class="band"></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow rv">Next step</div>
+      <h2 class="rv d1">I'm <span class="acc">Morgan Von Druitt</span></h2>
+      <p class="rv d2 mono" style="margin-top:.9rem;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)">CEO, Founder @ Dipity</p>
+      <div class="rv d3" style="margin-top:2rem;max-width:460px">
+        <div class="term">
+          <div class="bar"><i></i><i></i><i></i><span>~/contact</span></div>
+          <div class="tbody">
+            <span class="p">$</span> reach morgan<br>
+            <span class="ln">&gt;</span> linkedin: <span style="color:#fff">Morgan Von Druitt</span><br>
+            <span class="ln">&gt;</span> email: <span style="color:#fff">morgan@dipity.digital</span><br>
+            <span class="ln">&gt;</span> phone: <span style="color:#fff">+1 617-991-0380</span><br>
+            <span class="ln">&gt;</span> based: <span style="color:#fff">Westport, MA</span>
+          </div>
+        </div>
+      </div>
+      <div class="stake-line rv d4">Sera is live. <span class="acc">She'd love to interview you.</span></div>
+    </div>
+  </div>
+  <div class="footbar"><span>Backed by Founder Institute</span><span>dipity.studio</span></div>
+</section>
+
+<nav class="dots" id="dots"></nav>
+
+<script>
+const KEY='dipity-deck-v3';
+
+// restore a saved edit session (text + slide order) if present
+const saved=localStorage.getItem(KEY);
+if(saved){
+  try{
+    const tmp=document.createElement('div');tmp.innerHTML=saved;
+    document.querySelectorAll('body > section').forEach(s=>s.remove());
+    [...tmp.children].reverse().forEach(s=>document.body.prepend(s));
+  }catch(e){localStorage.removeItem(KEY)}
+}
+
+function secs(){return [...document.querySelectorAll('section')]}
+const dots=document.getElementById('dots');
+let das=[];
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    e.target.classList.add('in');
+    das.forEach(d=>d.classList.remove('on'));
+    const i=secs().indexOf(e.target);
+    if(das[i])das[i].classList.add('on');
+  }
+}),{threshold:.45});
+
+function renumber(){
+  const ss=secs(),n=ss.length;
+  ss.forEach((s,i)=>{
+    const idx=s.querySelector('.idx');
+    if(idx)idx.innerHTML='<b>'+String(i+1).padStart(2,'0')+'</b> / '+n;
+  });
+  dots.innerHTML='';
+  ss.forEach(s=>{const a=document.createElement('a');a.href='#'+s.id;dots.appendChild(a)});
+  das=[...dots.children];
+  ss.forEach(s=>io.observe(s));
+}
+renumber();
+
+addEventListener('keydown',e=>{
+  if(document.activeElement&&document.activeElement.isContentEditable)return;
+  const cur=das.findIndex(d=>d.classList.contains('on'));
+  if(e.key==='ArrowDown'||e.key==='PageDown'||e.key===' '){e.preventDefault();secs()[Math.min(cur+1,secs().length-1)].scrollIntoView()}
+  if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();secs()[Math.max(cur-1,0)].scrollIntoView()}
+});
+
+// ── edit mode ──
+const tools=document.createElement('div');
+tools.className='tools';tools.id='tools';
+tools.innerHTML='<button class="tgl">✎ Edit</button><button class="exp">Export</button><button class="rst">Reset</button>';
+document.body.appendChild(tools);
+
+function addMovers(){
+  secs().forEach(s=>{
+    if(s.querySelector('.mover'))return;
+    const m=document.createElement('div');
+    m.className='mover';m.contentEditable=false;
+    m.innerHTML='<button title="Move slide up">▲</button><button title="Move slide down">▼</button>';
+    m.children[0].onclick=()=>{const p=s.previousElementSibling;if(p&&p.tagName==='SECTION'){s.after(p);renumber();save();s.scrollIntoView()}};
+    m.children[1].onclick=()=>{const nx=s.nextElementSibling;if(nx&&nx.tagName==='SECTION'){s.before(nx);renumber();save();s.scrollIntoView()}};
+    s.appendChild(m);
+  });
+}
+
+function cleanClone(){
+  const out=[];
+  secs().forEach(s=>{
+    const c=s.cloneNode(true);
+    c.querySelector('.mover')?.remove();
+    c.removeAttribute('contenteditable');
+    c.querySelectorAll('[contenteditable]').forEach(el=>el.removeAttribute('contenteditable'));
+    c.classList.remove('in');
+    out.push(c.outerHTML);
+  });
+  return out.join('\n\n');
+}
+function save(){localStorage.setItem(KEY,cleanClone())}
+
+let editing=false;
+tools.querySelector('.tgl').onclick=()=>{
+  editing=!editing;
+  document.body.classList.toggle('editing',editing);
+  secs().forEach(s=>{
+    s.querySelectorAll('.wrap, .footbar, .marg, .topmarg').forEach(el=>{
+      if(editing)el.setAttribute('contenteditable','true');
+      else el.removeAttribute('contenteditable');
+    });
+  });
+  if(editing)addMovers();else save();
+};
+document.body.addEventListener('input',()=>{if(editing)save()});
+
+tools.querySelector('.exp').onclick=()=>{
+  save();
+  const doc='<!DOCTYPE html>\n<html lang="en">\n'+document.head.outerHTML+'\n<body>\n\n'+cleanClone()+'\n\n<nav class="dots" id="dots"></nav>\n\n<scr'+'ipt>\n'+document.querySelector('script').textContent+'\n</scr'+'ipt>\n</body>\n</html>';
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([doc],{type:'text/html'}));
+  a.download='index.html';a.click();
+};
+tools.querySelector('.rst').onclick=()=>{
+  if(confirm('Discard all in-browser edits and restore the original deck?')){localStorage.removeItem(KEY);location.reload()}
+};
+</script>
+</body>
+</html>
