@@ -570,8 +570,11 @@ body.editing [contenteditable]:hover{outline:1px dashed rgba(197,153,255,.5)}
 <div id="pitchModal" style="display:none;position:fixed;inset:0;z-index:120;background:rgba(6,6,7,.88);align-items:center;justify-content:center;padding:4vmin">
   <div style="position:relative;width:min(1100px,94vw)">
     <button id="pitchClose" class="mono" style="position:absolute;right:0;top:-2.4rem;font-size:12px;letter-spacing:.1em;color:var(--soft);background:none;border:1px solid var(--line-strong);border-radius:6px;padding:.4rem .8rem;cursor:pointer">CLOSE ✕</button>
-    <div style="border:1px solid var(--line-strong);border-radius:10px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.7)">
+    <div style="position:relative;border:1px solid var(--line-strong);border-radius:10px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.7)">
       <video id="pitchVideo" src="assets/pitch.mp4" controls playsinline style="width:100%;display:block"></video>
+      <button id="pitchPlay" aria-label="Play pitch video" style="position:absolute;inset:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(6,6,7,.35);border:none;cursor:pointer">
+        <span style="display:flex;align-items:center;justify-content:center;width:84px;height:84px;border-radius:50%;background:rgba(12,12,13,.72);border:1px solid var(--accent);box-shadow:0 0 34px rgba(197,153,255,.35);color:#fff;font-size:30px;padding-left:6px">&#9654;</span>
+      </button>
     </div>
   </div>
 </div>
@@ -737,8 +740,9 @@ addEventListener('scroll',()=>fmt.classList.remove('show'),true);
 
 
 // pitch video modal
-const pm=document.getElementById('pitchModal'),pv=document.getElementById('pitchVideo');
-document.getElementById('pitchLink').onclick=e=>{e.preventDefault();pm.style.display='flex';pv.play()};
+const pm=document.getElementById('pitchModal'),pv=document.getElementById('pitchVideo'),pp=document.getElementById('pitchPlay');
+document.getElementById('pitchLink').onclick=e=>{e.preventDefault();pm.style.display='flex';pp.style.display=pv.paused?'flex':'none'};
+pp.onclick=()=>{pp.style.display='none';pv.play()};
 function pmClose(){pm.style.display='none';pv.pause()}
 document.getElementById('pitchClose').onclick=pmClose;
 pm.onclick=e=>{if(e.target===pm)pmClose()};
