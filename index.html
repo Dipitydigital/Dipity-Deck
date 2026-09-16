@@ -185,6 +185,77 @@ body.editing [contenteditable]:hover{outline:1px dashed rgba(197,153,255,.5)}
   .dots,.topmarg,.marg{display:none}
   .footbar{padding:1rem 1.3rem;font-size:9px}
 }
+
+/* ── phone portrait ── */
+@media(max-width:700px) and (orientation:portrait){
+  html{scroll-snap-type:y proximity}
+  section{min-height:100svh}
+  .wrap{padding:16vw 6vw 14vw}
+  h1{font-size:clamp(32px,9.5vw,42px)!important}
+  h2{font-size:clamp(24px,7.5vw,32px)!important}
+  #s1 h2{font-size:clamp(16px,4.6vw,20px)!important}
+  #s1 video{width:120px!important}
+  #s1 .wrap>.rv.d4{margin-top:1.6rem!important}
+  .body-copy{font-size:14px}
+  .lede{margin-top:1rem}
+  .eyebrow{margin-bottom:1rem}
+  .stake-line{font-size:16.5px;margin-top:1.5rem}
+  .brand{height:20px;top:1.1rem;left:1.2rem}
+  .idx{top:1.2rem;right:1.2rem;font-size:10px}
+  .hs-row{gap:.8rem;padding:.75rem 0}
+  .hs-row .lbl{min-width:6.5em;font-size:10.5px}
+  .hs-row .amt{font-size:22px;min-width:2.2em}
+  .hs-row p{font-size:13px}
+  #s5 .rv.d3 > div{font-size:clamp(44px,13vw,60px)!important}
+  #s3 .rv.d3{grid-template-columns:1fr 1fr!important;gap:.6rem!important;margin-top:1.6rem!important}
+  .fcard{padding:1rem .7rem}
+  .fcard p{font-size:11.5px}
+  .fcard h4{font-size:13.5px;margin:.6rem 0 .35rem}
+  #s4 .wrap>div{grid-column:1!important}
+  #s4 .ht{aspect-ratio:auto!important;height:32svh;margin-top:1.2rem}
+  .pcols{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;margin-top:1.6rem}
+  .pcol{min-width:74vw;scroll-snap-align:center;border-right:1px solid var(--line);border-bottom:none;padding:1.2rem 1rem 1.4rem}
+  .pcol .blurb{min-height:0}
+  #s9 .wrap{padding-top:16vw!important}
+  #s9 .hs-row{padding:.6rem 0!important}
+  #s9 .hs-row .mono{font-size:10px!important;padding:.3rem .6rem!important}
+  #s10 .rv.d3{margin:3.2rem 0 3rem!important}
+  #s10 .rv.d3 .mono{font-size:8px!important;letter-spacing:0!important}
+  #s10 .rv.d3 div:nth-child(6),#s10 .rv.d3 div:nth-child(8){top:1rem!important}
+  #s10 .rv.d3 div[style*="top:1.1rem"]{display:none}
+  #s11 .term .tbody{font-size:11.5px}
+}
+
+/* ── phone landscape ── */
+@media(max-height:520px) and (orientation:landscape){
+  html{scroll-snap-type:y proximity}
+  section{min-height:100svh}
+  .wrap{padding:3.4rem 6vw 2.4rem}
+  h1{font-size:clamp(26px,7vh,38px)!important}
+  h2{font-size:clamp(20px,6vh,28px)!important}
+  #s1 h2{font-size:clamp(14px,4vh,17px)!important}
+  #s1 video{width:90px!important}
+  #s1 .wrap>.rv.d4{margin-top:1rem!important}
+  .eyebrow{margin-bottom:.6rem}
+  .body-copy{font-size:13px}
+  .stake-line{font-size:15px;margin-top:1rem}
+  .hs-row{padding:.5rem 0;gap:.9rem}
+  .hs-row .amt{font-size:20px}
+  .hs-row p{font-size:12px}
+  .brand{height:18px;top:1rem;left:1.1rem}
+  .idx{top:1rem;right:1.1rem;font-size:10px}
+  .topmarg,.marg,.dots{display:none}
+  .footbar{display:none}
+  #s5 .rv.d3 > div{font-size:clamp(36px,11vh,54px)!important}
+  .fcard{padding:.8rem .6rem}
+  .fcard p{font-size:10.5px}
+  .pcols{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:1rem}
+  .pcol{min-width:44vw;scroll-snap-align:center;padding:1rem .9rem}
+  .pcol .blurb{min-height:0}
+  #s4 .ht{aspect-ratio:auto!important;height:70svh}
+  #s10 .rv.d3{margin:2.6rem 0 2.4rem!important}
+  #s10 .rv.d3 div[style*="top:1.1rem"]{display:none}
+}
 </style>
 </head>
 <body>
@@ -361,14 +432,14 @@ body.editing [contenteditable]:hover{outline:1px dashed rgba(197,153,255,.5)}
       <div class="pcol">
         <h4>Standard</h4>
         <p class="blurb">The complete Sera engine at a starter media budget.</p>
-        <div class="price">$149 <small>/monthly</small></div>
+        <div class="price">$145&nbsp;<small>/monthly</small></div>
         <span class="btn">Start</span>
         <ul><li>Unlimited written posts &amp; blogs</li><li>300 media credits&nbsp;</li><li>Voice, video &amp; text interviews&nbsp;</li><li>Newsroom, scheduling &amp; library</li><li>Top up credits anytime</li></ul>
       </div>
       <div class="pcol hot">
         <h4>AI CMO — Sera</h4>
         <p class="blurb">Full production volume — a daily multi-channel presence.</p>
-        <div class="price">$497 <small>/monthly</small></div>
+        <div class="price">$495&nbsp;<small>/monthly</small></div>
         <span class="btn fill">Popular</span>
         <ul><li>Everything in Standard</li><li>1,500 media credits</li><li>Daily video, clips &amp; imagery</li><li>Voice &amp; video clone</li><li>Priority support</li></ul>
       </div>
