@@ -290,6 +290,7 @@ body.editing [contenteditable]:hover{outline:1px dashed rgba(197,153,255,.5)}
           <span class="ln">&gt;</span><span style="color: rgb(197, 153, 255);"> Sera;</span> Stateful Executive Resource Agent<br>
           <span class="ln">&gt;</span> 39 executives on · 18 LOIs · <span style="color:var(--accent)">$432K ARR committed</span></div>
       </div>
+      <div style="margin-top:1rem;text-align:center"><a href="#" id="pitchLink" class="mono" style="font-size:12.5px;letter-spacing:.06em;color:var(--accent);text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(197,153,255,.45)">▶&nbsp; Click here to watch pitch</a></div>
     </div>
   </div>
   <div class="footbar"><span>Dipity Labs Inc.</span><span>dipity.studio</span></div>
@@ -566,6 +567,15 @@ body.editing [contenteditable]:hover{outline:1px dashed rgba(197,153,255,.5)}
 <div class="gframe"></div>
 <nav class="dots" id="dots"></nav>
 
+<div id="pitchModal" style="display:none;position:fixed;inset:0;z-index:120;background:rgba(6,6,7,.88);align-items:center;justify-content:center;padding:4vmin">
+  <div style="position:relative;width:min(1100px,94vw)">
+    <button id="pitchClose" class="mono" style="position:absolute;right:0;top:-2.4rem;font-size:12px;letter-spacing:.1em;color:var(--soft);background:none;border:1px solid var(--line-strong);border-radius:6px;padding:.4rem .8rem;cursor:pointer">CLOSE ✕</button>
+    <div style="border:1px solid var(--line-strong);border-radius:10px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.7)">
+      <video id="pitchVideo" src="assets/pitch.mp4" controls playsinline style="width:100%;display:block"></video>
+    </div>
+  </div>
+</div>
+
 <script>
 
 
@@ -724,6 +734,15 @@ addEventListener('scroll',()=>fmt.classList.remove('show'),true);
 
 
 
+
+
+// pitch video modal
+const pm=document.getElementById('pitchModal'),pv=document.getElementById('pitchVideo');
+document.getElementById('pitchLink').onclick=e=>{e.preventDefault();pm.style.display='flex';pv.play()};
+function pmClose(){pm.style.display='none';pv.pause()}
+document.getElementById('pitchClose').onclick=pmClose;
+pm.onclick=e=>{if(e.target===pm)pmClose()};
+addEventListener('keydown',e=>{if(e.key==='Escape'&&pm.style.display==='flex')pmClose()});
 
 </script>
 </body>
