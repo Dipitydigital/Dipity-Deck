@@ -789,6 +789,22 @@ document.getElementById('pitchClose').onclick=pmClose;
 pm.onclick=e=>{if(e.target===pm)pmClose()};
 addEventListener('keydown',e=>{if(e.key==='Escape'&&pm.style.display==='flex')pmClose()});
 
+
+// slide navigation: left/right arrows + PageUp/PageDown (presentation clickers)
+addEventListener('keydown',e=>{
+  if(!['ArrowRight','ArrowLeft','PageDown','PageUp'].includes(e.key))return;
+  if(document.activeElement&&document.activeElement.isContentEditable)return;
+  if(pm.style.display==='flex')return;
+  e.preventDefault();
+  const all=secs();
+  const cur=all.reduce((best,sec,i)=>{
+    const d=Math.abs(sec.getBoundingClientRect().top);
+    return d<best.d?{i,d}:best;
+  },{i:0,d:Infinity}).i;
+  const next=e.key==='ArrowRight'||e.key==='PageDown'?Math.min(cur+1,all.length-1):Math.max(cur-1,0);
+  all[next].scrollIntoView({behavior:'smooth'});
+});
+
 </script>
 </body>
 </html>
