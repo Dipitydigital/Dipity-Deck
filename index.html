@@ -133,6 +133,21 @@ h2{font-weight:500;font-size:clamp(32px,3.7vw,52px);line-height:1.12;letter-spac
 .pcol .btn{display:block;text-align:center;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line-strong);border-radius:6px;padding:.7rem 0;color:#fff;margin-bottom:1.1rem}
 .pcol .btn.fill{background:var(--accent);border-color:var(--accent);color:#111}
 
+/* ── animated brand-gradient text (matches app button sheen language) ── */
+@keyframes gradShift{to{background-position:200% 50%}}
+.gradtext{background:linear-gradient(90deg,#c599ff,#ff88be,#ffffff,#c599ff) 0 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradShift 3.2s linear infinite}
+
+/* ── roadmap journey nodes ── */
+.rmap{display:flex;align-items:stretch;gap:.5rem;margin:2.6rem auto 0;max-width:1080px}
+.rnode{flex:1;border:1px solid var(--line-strong);border-radius:8px;padding:1.5rem .8rem 1.3rem;background:rgba(255,255,255,.015);text-align:center}
+.rnode .rnum{font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.1em}
+.rnode h4{font-weight:500;font-size:clamp(14px,1.3vw,18px);margin:.55rem 0 .9rem;color:#fff}
+.rarrow{display:flex;align-items:center;font-family:'Geist Mono',monospace;font-size:16px;color:var(--soft);flex:none}
+.rarrow i{font-style:normal;opacity:.2;animation:chevChase 1.6s linear infinite}
+.rarrow i+i{animation-delay:.28s}
+.rarrow i+i+i{animation-delay:.56s}
+@keyframes chevChase{0%,60%,100%{opacity:.15}25%{opacity:1}}
+
 /* ── roadmap chip animations ── */
 /* off until the slide scrolls into view (.in): gray text/border, then power on in
    sequence (<3s total), then settle into a faint steady breathing glow via
@@ -231,9 +246,10 @@ body.editing [contenteditable]:hover{outline:1px dashed rgba(197,153,255,.5)}
   .pcols{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;margin-top:1.6rem}
   .pcol{min-width:74vw;scroll-snap-align:center;border-right:1px solid var(--line);border-bottom:none;padding:1.2rem 1rem 1.4rem}
   .pcol .blurb{min-height:0}
-  #s9 .wrap{padding-top:16vw!important}
-  #s9 .hs-row{padding:.6rem 0!important}
-  #s9 .hs-row .mono{font-size:10px!important;padding:.3rem .6rem!important}
+  .rmap{flex-direction:column;max-width:300px;gap:.45rem;margin-top:1.6rem}
+  .rnode{padding:.85rem .8rem .8rem}
+  .rnode h4{margin:.3rem 0 .55rem}
+  .rarrow{justify-content:center;transform:rotate(90deg);font-size:13px}
   #s10 .rv.d3{margin:3.2rem 0 3rem!important}
   #s10 .rv.d3 .mono{font-size:8px!important;letter-spacing:0!important}
   #s10 .rv.d3 div:nth-child(6),#s10 .rv.d3 div:nth-child(8){top:1rem!important}
@@ -291,7 +307,7 @@ body.editing [contenteditable]:hover{outline:1px dashed rgba(197,153,255,.5)}
           <span class="ln">&gt;</span><span style="color: rgb(197, 153, 255);"> Sera;</span> Stateful Executive Resource Agent<br>
           <span class="ln">&gt;</span> 39 executives on · 18 LOIs · <span style="color:var(--accent)">$432K ARR committed</span></div>
       </div>
-      <div style="margin-top:1rem;text-align:center"><a href="#" id="pitchLink" class="mono" style="font-size:12.5px;letter-spacing:.06em;color:var(--accent);text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(197,153,255,.45)">▶&nbsp; Click here to watch pitch</a></div>
+      <div style="margin-top:1rem;text-align:center"><a href="#" id="pitchLink" class="mono gradtext" style="font-size:13px;letter-spacing:.06em;text-decoration:none">▶&nbsp; Click here to watch pitch</a></div>
     </div>
   </div>
   <div class="footbar"><span>Dipity Labs Inc.</span><span>dipity.studio</span></div>
@@ -418,12 +434,36 @@ body.editing [contenteditable]:hover{outline:1px dashed rgba(197,153,255,.5)}
   <div class="wrap" style="text-align:center">
     <div class="eyebrow rv" style="display:inline-block">The Roadmap</div>
     <h2 class="rv d1">Full-stack <span style="color: rgb(197, 153, 255);">agentic teams</span></h2>
-    <div class="hs-rows" style="margin:2.2rem auto 0;max-width:660px;text-align:left">
-      <div class="hs-row rv d1" style="align-items:center;padding:1.05rem 0;gap:1rem"><span class="mono" style="font-size:11px;color:var(--lime)">01</span><span class="lbl" style="color:#fff;font-size:14px;min-width:auto">Marketing</span><i style="flex:1;border-bottom:1px dotted var(--line-strong)"></i><span class="mono" style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(162,248,101,.55);border-radius:4px;padding:.4rem .85rem;color:var(--lime)">Sera · Live today</span></div>
-      <div class="hs-row rv d2" style="align-items:center;padding:1.05rem 0;gap:1rem"><span class="mono" style="font-size:11px;color:#f6e86a">02</span><span class="lbl" style="color:#fff;font-size:14px;min-width:auto">Sales</span><i style="flex:1;border-bottom:1px dotted var(--line-strong)"></i><span class="mono" style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(246,232,106,.55);border-radius:4px;padding:.4rem .85rem;color:#f6e86a">MVP · Q1 2027</span></div>
-      <div class="hs-row rv d3" style="align-items:center;padding:1.05rem 0;gap:1rem"><span class="mono" style="font-size:11px;color:#f6e86a">03</span><span class="lbl" style="color:#fff;font-size:14px;min-width:auto">Development</span><i style="flex:1;border-bottom:1px dotted var(--line-strong)"></i><span class="mono" style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(246,232,106,.55);border-radius:4px;padding:.4rem .85rem;color:#f6e86a">MVP · Q1 2027</span></div>
-      <div class="hs-row rv d4" style="align-items:center;padding:1.05rem 0;gap:1rem"><span class="mono" style="font-size:11px;color:#ffb877">04</span><span class="lbl" style="color:#fff;font-size:14px;min-width:auto">Finance</span><i style="flex:1;border-bottom:1px dotted var(--line-strong)"></i><span class="mono" style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(255,184,119,.55);border-radius:4px;padding:.4rem .85rem;color:#ffb877">MVP · Q3 2027</span></div>
-      <div class="hs-row rv d5" style="align-items:center;padding:1.05rem 0;gap:1rem"><span class="mono" style="font-size:11px;color:#ff9c85">05</span><span class="lbl" style="color:#fff;font-size:14px;min-width:auto">Operations</span><i style="flex:1;border-bottom:1px dotted var(--line-strong)"></i><span class="mono" style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(255,156,133,.55);border-radius:4px;padding:.4rem .85rem;color:#ff9c85">MVP · Q4 2027</span></div>
+    <div class="rmap rv d2">
+      <div class="rnode" style="border-color:rgba(162,248,101,.5);box-shadow:0 0 26px -12px rgba(162,248,101,.55)">
+        <div class="rnum" style="color:var(--lime)">01</div>
+        <h4>Marketing</h4>
+        <span class="mono chipglow" style="display:inline-block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;border:1px solid rgba(162,248,101,.55);border-radius:4px;padding:.35rem .6rem;color:var(--lime)">Sera · Live</span>
+      </div>
+      <div class="rarrow"><i>▸</i><i>▸</i><i>▸</i></div>
+      <div class="rnode">
+        <div class="rnum" style="color:#f6e86a">02</div>
+        <h4>Sales</h4>
+        <span class="mono chipblink" style="display:inline-block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;border:1px solid rgba(246,232,106,.55);border-radius:4px;padding:.35rem .6rem;color:#f6e86a">Q1 2027</span>
+      </div>
+      <div class="rarrow"><i>▸</i><i>▸</i><i>▸</i></div>
+      <div class="rnode">
+        <div class="rnum" style="color:#f6e86a">03</div>
+        <h4>Development</h4>
+        <span class="mono chipblink b2" style="display:inline-block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;border:1px solid rgba(246,232,106,.55);border-radius:4px;padding:.35rem .6rem;color:#f6e86a">Q1 2027</span>
+      </div>
+      <div class="rarrow"><i>▸</i><i>▸</i><i>▸</i></div>
+      <div class="rnode">
+        <div class="rnum" style="color:#ffb877">04</div>
+        <h4>Finance</h4>
+        <span class="mono chipblink b3" style="display:inline-block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;border:1px solid rgba(255,184,119,.55);border-radius:4px;padding:.35rem .6rem;color:#ffb877">Q3 2027</span>
+      </div>
+      <div class="rarrow"><i>▸</i><i>▸</i><i>▸</i></div>
+      <div class="rnode">
+        <div class="rnum" style="color:#ff9c85">05</div>
+        <h4>Operations</h4>
+        <span class="mono chipblink b4" style="display:inline-block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;border:1px solid rgba(255,156,133,.55);border-radius:4px;padding:.35rem .6rem;color:#ff9c85">Q4 2027</span>
+      </div>
     </div>
     <div class="stake-line rv d4" style="margin-top:2rem">Unify knowledge &amp; <span style="color: rgb(255, 136, 190);">scale capacity</span></div>
   </div>
