@@ -13,13 +13,14 @@
 body{background:#333;font-family:'Geist',sans-serif;-webkit-font-smoothing:antialiased}
 .banner{position:relative;background:var(--bg);color:#fff;overflow:hidden;margin:20px auto}
 
-/* dot-matrix texture, masked toward the right where the copy sits */
-.banner .tex{position:absolute;inset:0;
-  background-image:radial-gradient(rgba(255,255,255,.13) 1px,transparent 1.3px);
-  background-size:8px 8px;
-  mask-image:radial-gradient(75% 120% at 78% 45%,#000 30%,transparent 78%);
-  -webkit-mask-image:radial-gradient(75% 120% at 78% 45%,#000 30%,transparent 78%);
-  opacity:.75}
+/* site's dithered swoosh dot fields (Dithered-BG assets from morgans-rebuild) */
+.banner .tex{position:absolute;inset:0;background:url('dither-01.webp') center top/cover no-repeat;opacity:.95}
+#li-personal .tex{background-image:url('dither-02.webp')}
+#li-company .tex{background-image:url('dither-03.webp');background-position:center bottom}
+/* soft violet cast on the dots, upper-left — mirrors the site hero */
+.banner .tint{position:absolute;inset:0;background:radial-gradient(60% 100% at 12% 8%,rgba(139,92,246,.32),transparent 62%);mix-blend-mode:screen}
+/* gentle right-side shade so the copy stays crisp over the dots */
+.banner .shade{position:absolute;inset:0;background:linear-gradient(to left,rgba(12,12,13,.66) 0%,rgba(12,12,13,.3) 34%,transparent 58%)}
 
 /* gradient pixel frame (deck .gframe language, inset to the banner edge) */
 .banner .frame{position:absolute;inset:8px;pointer-events:none}
@@ -76,7 +77,7 @@ body{background:#333;font-family:'Geist',sans-serif;-webkit-font-smoothing:antia
 <body>
 
 <div class="banner" id="x">
-  <div class="tex"></div><div class="frame"></div>
+  <div class="tex"></div><div class="tint"></div><div class="shade"></div><div class="frame"></div>
   <img class="logo" src="../assets/dipity-wordmark.png" alt="Dipity">
   <span class="marg">// AI employees, not tools //</span>
   <div class="copy">
@@ -87,7 +88,7 @@ body{background:#333;font-family:'Geist',sans-serif;-webkit-font-smoothing:antia
 </div>
 
 <div class="banner" id="li-personal">
-  <div class="tex"></div><div class="frame"></div>
+  <div class="tex"></div><div class="tint"></div><div class="shade"></div><div class="frame"></div>
   <img class="logo" src="../assets/dipity-wordmark.png" alt="Dipity">
   <span class="marg">// AI employees, not tools //</span>
   <div class="copy">
@@ -98,7 +99,7 @@ body{background:#333;font-family:'Geist',sans-serif;-webkit-font-smoothing:antia
 </div>
 
 <div class="banner" id="li-company">
-  <div class="tex"></div><div class="frame"></div>
+  <div class="tex"></div><div class="tint"></div><div class="shade"></div><div class="frame"></div>
   <img class="logo" src="../assets/dipity-wordmark.png" alt="Dipity">
   <span class="marg">// AI employees, not tools //</span>
   <div class="copy">
