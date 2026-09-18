@@ -14,9 +14,7 @@ body{background:#333;font-family:'Geist',sans-serif;-webkit-font-smoothing:antia
 .banner{position:relative;background:var(--bg);color:#fff;overflow:hidden;margin:20px auto}
 
 /* site's dithered swoosh dot fields — scaled down + dimmed, background element */
-.banner .tex{position:absolute;inset:0;background:url('dither-01.webp') right -40px top/56% auto no-repeat;opacity:.42}
-#li-personal .tex{background-image:url('dither-02.webp');background-position:center top;background-size:62% auto}
-#li-company .tex{background-image:url('dither-03.webp');background-position:center bottom;background-size:58% auto}
+.banner .tex{position:absolute;inset:0;background:url('dither-03.webp') left bottom/100% auto no-repeat;opacity:.42}
 /* faint violet cast upper-left, like the hero */
 .banner .tint{position:absolute;inset:0;background:radial-gradient(60% 100% at 12% 8%,rgba(139,92,246,.18),transparent 60%);mix-blend-mode:screen}
 
@@ -43,9 +41,9 @@ body{background:#333;font-family:'Geist',sans-serif;-webkit-font-smoothing:antia
 .pbody h1 .acc{color:var(--accent)}
 .pbody h1 .pk{color:var(--pink)}
 .pbody .sub{font-family:'Geist Mono',monospace;color:var(--soft);line-height:1.55}
-.pbody .sub .d{color:var(--lime)}
+.pbody .sub .d{color:var(--accent)}
 .pbody .sub b{color:#fff;font-weight:500}
-.cta{display:inline-block;font-family:'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase;background:var(--lime);color:#111;border-radius:6px;font-weight:500}
+.cta{display:inline-block;font-family:'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#fff;border-radius:6px;font-weight:500;border:1.5px solid transparent;background:linear-gradient(#0c0c0d,#0c0c0d) padding-box,linear-gradient(110deg,#c599ff,#ff88be,#ffffff,#c599ff) border-box}
 
 /* ── X header 1500×500 ── */
 #x{width:1500px;height:500px}
@@ -84,7 +82,7 @@ body{background:#333;font-family:'Geist',sans-serif;-webkit-font-smoothing:antia
 <div class="banner" id="x">
   <div class="tex"></div><div class="tint"></div><div class="frame"></div>
   <img class="logo" src="../assets/dipity-wordmark.png" alt="Dipity">
-  <span class="marg">// AI employees, not tools //</span>
+  <span class="marg">// an AI executive, not a tool //</span>
   <div class="panel">
     <div class="pbar"><i></i><i></i><i></i><span>~/hire-your-ai-cmo</span><b>⤢</b></div>
     <div class="pbody">
@@ -98,7 +96,7 @@ body{background:#333;font-family:'Geist',sans-serif;-webkit-font-smoothing:antia
 <div class="banner" id="li-personal">
   <div class="tex"></div><div class="tint"></div><div class="frame"></div>
   <img class="logo" src="../assets/dipity-wordmark.png" alt="Dipity">
-  <span class="marg">// AI employees, not tools //</span>
+  <span class="marg">// an AI executive, not a tool //</span>
   <div class="panel">
     <div class="pbar"><i></i><i></i><i></i><span>~/hire-your-ai-cmo</span><b>⤢</b></div>
     <div class="pbody">
@@ -112,7 +110,7 @@ body{background:#333;font-family:'Geist',sans-serif;-webkit-font-smoothing:antia
 <div class="banner" id="li-company">
   <div class="tex"></div><div class="tint"></div><div class="frame"></div>
   <img class="logo" src="../assets/dipity-wordmark.png" alt="Dipity">
-  <span class="marg">// AI employees, not tools //</span>
+  <span class="marg">// an AI executive, not a tool //</span>
   <div class="panel">
     <div class="pbar"><i></i><i></i><i></i><span>~/hire-your-ai-cmo</span><b>⤢</b></div>
     <div class="pbody">
